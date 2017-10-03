@@ -204,8 +204,6 @@ def main():
         path = "C:\\Users\\" + getuser() + "\\Downloads\\getit\\"
     else:
         path = "/Users/" + getuser() + "/Downloads/getit"
-        if not os.path.exists(path):
-            os.makedirs(path)
     output, err = commands(path, 'cd', True)
     if err != '':
         commands(path, 'mkdir')
