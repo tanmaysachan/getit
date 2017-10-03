@@ -2,7 +2,6 @@ import configparser
 import subprocess
 import sys
 import platform
-import os
 from getopt import GetoptError, getopt
 from getpass import getuser
 from time import time
