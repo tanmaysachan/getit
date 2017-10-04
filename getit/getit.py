@@ -178,8 +178,11 @@ def pathcheck(path):
         usage()
         print(Fore.RED + err)
         sys.exit(2)
-    elif path[len(path) - 1] != '\\':
-        path += '\\'
+    elif path[len(path) - 1] != '\\' or path[len(path) - 1] != "/":
+        if platform.system() == "Windows":
+            path += '\\'
+        else:
+            path += "/"
     return path
 
 
@@ -199,10 +202,12 @@ def main():
     system = ''
     fname = ''
     info = ''
-    if (platform.system() == "Windows"):
+    if platform.system() == "Windows":  # for Windows
         path = "C:\\Users\\" + getuser() + "\\Downloads\\getit\\"
-    else:
-        path = "/Users/" + getuser() + "/Downloads/getit"
+    elif platform.system() == "Darwin":  # for macOS
+        path = "/Users/" + getuser() + "/Downloads/getit/"
+    else:  # for linux
+        path = "/home/" + getuser() + "/Downloads/getit/"
     output, err = commands(path, 'cd', True)
     if err != '':
         commands(path, 'mkdir')
@@ -255,14 +260,21 @@ def main():
             Fore.GREEN + "? " + Style.RESET_ALL +
             "Filename : " + Fore.CYAN + name + Style.RESET_ALL
         )
-    if path == "C:\\Users\\" + getuser() + "\Downloads\getit\\":
+    if (path == "C:\\Users\\" + getuser() + "\Downloads\getit\\"
+            or path == "/Users/" + getuser() + "/Downloads/getit/"
+            or path == "/home/" + getuser() + "/Downloads/getit/"):
         sys.stderr.write(
             Fore.GREEN + "? " + Style.RESET_ALL +
             "File Path : " + Fore.YELLOW + "(" + path + ") " + Style.RESET_ALL
         )
         path = input()
         if path == '':
-            path = "C:\\Users\\" + getuser() + "\Downloads\getit\\"
+            if (platform.system() == "Windows"):
+                path = "C:\\Users\\" + getuser() + "\Downloads\getit\\"
+            elif (platform.system() == "Darwin"):
+                path = "/Users/" + getuser() + "/Downloads/getit/"
+            else:
+                path = "/home/" + getuser() + "/Downloads/getit/"
         print(
             Fore.GREEN + "? " + Style.RESET_ALL +
             "Path : " + Fore.CYAN + path + Style.RESET_ALL
