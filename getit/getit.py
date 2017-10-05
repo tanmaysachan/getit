@@ -267,14 +267,9 @@ def main():
             Fore.GREEN + "? " + Style.RESET_ALL +
             "File Path : " + Fore.YELLOW + "(" + path + ") " + Style.RESET_ALL
         )
-        path = input()
-        if path == '':
-            if (platform.system() == "Windows"):
-                path = "C:\\Users\\" + getuser() + "\Downloads\getit\\"
-            elif (platform.system() == "Darwin"):
-                path = "/Users/" + getuser() + "/Downloads/getit/"
-            else:
-                path = "/home/" + getuser() + "/Downloads/getit/"
+        input_path = input()
+        if input_path != '':
+            path = input_path
         print(
             Fore.GREEN + "? " + Style.RESET_ALL +
             "Path : " + Fore.CYAN + path + Style.RESET_ALL
